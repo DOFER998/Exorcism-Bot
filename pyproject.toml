@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "exorcism-bot"
+version = "0.1.0"
+description = ""
+authors = ["DOFER998 <killmy666@gmail.com>"]
+readme = "README.md"
+packages = [{include = "exorcism_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.1.1"
+python-dotenv = "^1.0.0"
+pydantic-settings = "^2.0.2"
+httpx = "^0.24.1"
+motor = "^3.2.0"
+py-cord = "^2.4.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
