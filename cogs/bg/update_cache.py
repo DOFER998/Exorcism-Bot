@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands, tasks
 
 from utils.content_cache import reload_cache
+from utils.apis.officer.http.version import version
+from data.database import get_val_version, add_version_in_db
 
 
 class UpdateCache(commands.Cog):
@@ -15,7 +17,10 @@ class UpdateCache(commands.Cog):
 
     @tasks.loop(hours=1)
     async def update_cache(self) -> None:
-        await reload_cache()
+        val = await get_val_version()
+        if version.version != val.version:
+            await add_version_in_db(data=version)
+            await reload_cache()
 
     @update_cache.before_loop
     async def before_update_cache(self) -> None:
