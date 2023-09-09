@@ -1,7 +1,6 @@
 import discord
 
 from data.settings import settings
-from test import test
 
 bot = discord.Bot(intents=discord.Intents.all(), owner_id=settings.owner_id, debug_guild=settings.guild_id)
 
@@ -18,6 +17,7 @@ extensions = [
     # --------------------user commands
     # --------------------system commands
     'cogs.bg.bot_control',
+    'cogs.bg.update_cache',
 ]
 
 if __name__ == '__main__':
