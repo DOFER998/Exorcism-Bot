@@ -242,7 +242,32 @@ async def add_queues_in_db(data):
         pass
 
 
+async def login_user_in_riot(user_id, data):
+    await users.update_one({"_id": str(user_id)}, {"$set": {"riot": data}})
+
+
+async def login_user_in_riot_update(user_id, cookie, access_token, expiry_token, entitlements_token):
+    await users.update_one({"_id": str(user_id)}, {
+        "$set": {"riot.cookie": cookie, "riot.access_token": access_token, "riot.expiry_token": expiry_token,
+                 "riot.entitlements_token": entitlements_token}})
+
+
 # get info
 async def get_val_version() -> version.Version:
     val = await config.find_one({"_id": "val_version"})
     return version.Version.model_validate(val)
+
+
+async def get_user(user_id):
+    info = await users.find_one({"_id": str(user_id)})
+    return info
+
+
+async def get_skins_lvl_uuid(uuid):
+    info = await skins.find_one({"levels.uuid": uuid})
+    return info
+
+
+async def get_content_tiers(uuid):
+    info = await content_tiers.find_one({"_id": uuid})
+    return info

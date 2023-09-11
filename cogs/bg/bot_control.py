@@ -27,9 +27,7 @@ class BotControl(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
-        if member.bot:
-            pass
-        else:
+        if not member.bot:
             await add_users(user_id=member.id)
 
 
