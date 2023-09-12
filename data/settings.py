@@ -28,6 +28,25 @@ class Color(BaseSettings):
 
 color = Color()
 
+
+class Emoji(BaseSettings):
+    v_point: str = '<:ValorantPointIcon:1137697062406856704>'
+    k_credit: str = '<:KingdomCreditIcon:1137697058212556840>'
+    expand: str = '<:expand:1122514948694757377>'
+    shrink: str = '<:shrink:1122514947172216972>'
+
+
+emoji = Emoji()
+
+
+class FeedbackChannelsId(BaseSettings):
+    bug: int = 1137753032117977088
+    feature: int = 1137753034772987944
+    comment: int = 1137753037620916345
+
+
+feedback = FeedbackChannelsId()
+
 tiers_color = {
     '0cebb8be-46d7-c12a-d306-e9907bfc5a25': 0x009587,
     'e046854e-406c-37f4-6607-19a9ba8426fc': 0xf5955b,

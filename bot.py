@@ -17,6 +17,7 @@ extensions = [
     # --------------------user commands
     'cogs.user.login',
     'cogs.user.store',
+    'cogs.user.feedback',
     # --------------------system commands
     'cogs.bg.bot_control',
     'cogs.bg.update_cache',

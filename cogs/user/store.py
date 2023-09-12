@@ -6,7 +6,7 @@ from data.database import get_skins_lvl_uuid, get_content_tiers
 from inter.buttons.skins_buttons import SwitchingBetweenStores
 from utils.apis.in_game.get_store import get_store
 from utils.user_check import check_user
-from data.settings import png, tiers_color, color
+from data.settings import png, tiers_color, color, emoji
 
 
 class Store(commands.Cog):
@@ -48,7 +48,7 @@ class Store(commands.Cog):
                 skin_info = await get_skins_lvl_uuid(skin['id'])
                 tiers = await get_content_tiers(skin_info['contentTierUuid'])
                 skin_embed = discord.Embed(title=" ",
-                                           description=f"<:ValorantPointIcon:1137697062406856704> `{skin['cost']}`",
+                                           description=f"{emoji.v_point} `{skin['cost']}`",
                                            color=tiers_color[skin_info['contentTierUuid']])
                 skin_embed.set_author(name=skin_info['displayName']['en-US'], icon_url=tiers['displayIcon'])
                 skin_embed.set_thumbnail(url=skin_info['displayIcon'])

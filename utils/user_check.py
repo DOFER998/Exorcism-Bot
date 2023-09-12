@@ -1,4 +1,5 @@
 import time
+import asyncio
 from data.database import get_user, login_user_in_riot_update
 from datetime import datetime, timedelta
 from utils.riot_auth.auth import Auth
@@ -13,8 +14,10 @@ async def check_user(user_id):
             expired_cookie = datetime.timestamp(datetime.utcnow() + timedelta(minutes=59))
             await login_user_in_riot_update(user_id=user_id, cookie=cookies, access_token=access_token,
                                             expiry_token=expired_cookie, entitlements_token=entitlements_token)
+            await asyncio.sleep(1)
             return user
         else:
+            await asyncio.sleep(1)
             return user
     except TypeError:
         return None
