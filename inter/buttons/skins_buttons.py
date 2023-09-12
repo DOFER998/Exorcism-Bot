@@ -75,11 +75,12 @@ class SwitchingBetweenStores(discord.ui.View):
                     sprays_embed.set_image(url=png.line)
                     new_embeds.append(sprays_embed)
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == 'dd3bf334-87f3-40bd-b043-682a57a8dc3a':  # Gun Buddies
-                    gun_buddies = await get_buddies_lvl_uuid(uuid=[item['Offer']['Rewards'][0]['ItemID']])
+                    gun_buddies = await get_buddies_lvl_uuid(uuid=item['Offer']['Rewards'][0]['ItemID'])
+                    print(gun_buddies)
                     gun_buddies_embed = discord.Embed(title=gun_buddies['displayName']['ru-RU'],
                                                       description=f"{emoji.k_credit} `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
                                                       color=color.main_color)
-                    gun_buddies_embed.set_thumbnail(url=gun_buddies['displayIcon'])
+                    gun_buddies_embed.set_thumbnail(url=gun_buddies['levels'][0]['displayIcon'])
                     gun_buddies_embed.set_image(url=png.line)
                     new_embeds.append(gun_buddies_embed)
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == '3f296c07-64c3-494c-923b-fe692a4fa1bd':  # Player Cards
@@ -114,7 +115,7 @@ class SwitchingBetweenStores(discord.ui.View):
                                            description=f"{emoji.v_point} `{skin['cost']}`",
                                            color=tiers_color[skin_info['contentTierUuid']])
                 skin_embed.set_author(name=skin_info['displayName']['en-US'], icon_url=tiers['displayIcon'])
-                skin_embed.set_thumbnail(url=skin_info['displayIcon'])
+                skin_embed.set_thumbnail(url=skin_info['levels'][0]['displayIcon'])
                 skin_embed.set_image(url=png.line)
                 new_embeds.append(skin_embed)
         button.label = new_label

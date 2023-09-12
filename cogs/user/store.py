@@ -51,7 +51,7 @@ class Store(commands.Cog):
                                            description=f"{emoji.v_point} `{skin['cost']}`",
                                            color=tiers_color[skin_info['contentTierUuid']])
                 skin_embed.set_author(name=skin_info['displayName']['en-US'], icon_url=tiers['displayIcon'])
-                skin_embed.set_thumbnail(url=skin_info['displayIcon'])
+                skin_embed.set_thumbnail(url=skin_info['levels'][0]['displayIcon'])
                 skin_embed.set_image(url=png.line)
                 embed_list.append(skin_embed)
             await ctx.respond(embeds=embed_list, view=SwitchingBetweenStores(interaction=ctx.interaction))
