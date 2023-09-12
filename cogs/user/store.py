@@ -6,7 +6,7 @@ from data.database import get_skins_lvl_uuid, get_content_tiers
 from inter.buttons.skins_buttons import SwitchingBetweenStores
 from utils.apis.in_game.get_store import get_store
 from utils.user_check import check_user
-from data.settings import png
+from data.settings import png, tiers_color
 
 
 class Store(commands.Cog):
@@ -41,12 +41,13 @@ class Store(commands.Cog):
             skin_info = await get_skins_lvl_uuid(skin['id'])
             tiers = await get_content_tiers(skin_info['contentTierUuid'])
             skin_embed = discord.Embed(title=" ",
-                                       description=f"<:ValorantPointIcon:1137697062406856704> `{skin['cost']}`")
+                                       description=f"<:ValorantPointIcon:1137697062406856704> `{skin['cost']}`",
+                                       color=tiers_color[skin_info['contentTierUuid']])
             skin_embed.set_author(name=skin_info['displayName']['en-US'], icon_url=tiers['displayIcon'])
             skin_embed.set_thumbnail(url=skin_info['displayIcon'])
             skin_embed.set_image(url=png.line)
             embed_list.append(skin_embed)
-        await ctx.respond(embeds=embed_list, view=SwitchingBetweenStores())
+        await ctx.respond(embeds=embed_list, view=SwitchingBetweenStores(interaction=ctx.interaction))
 
 
 def setup(bot):

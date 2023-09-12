@@ -271,3 +271,23 @@ async def get_skins_lvl_uuid(uuid):
 async def get_content_tiers(uuid):
     info = await content_tiers.find_one({"_id": uuid})
     return info
+
+
+async def get_sprays(uuid):
+    info = await sprays.find_one({"_id": uuid})
+    return info
+
+
+async def get_buddies_lvl_uuid(uuid):
+    info = await buddies.find_one({"levels.uuid": uuid})
+    return info
+
+
+async def get_player_cards(uuid):
+    info = await player_cards.find_one({"_id": uuid})
+    return info
+
+
+async def get_player_titles(uuid):
+    info = await player_titles.find_one({"_id": uuid})
+    return info
