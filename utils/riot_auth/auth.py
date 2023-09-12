@@ -152,7 +152,7 @@ class Auth:
         try:
             entitlements_token = data['entitlements_token']
         except KeyError:
-            raise RiotAuthenticationError('Срок действия cookie-файлов истек, выполните /login еще раз!')
+            raise RiotAuthenticationError('Срок действия cookie-файлов истек, выполните </login:1150791708892733542> еще раз!')
         else:
             return entitlements_token
 
@@ -194,7 +194,7 @@ class Auth:
         try:
             region = data['affinities']['live']
         except KeyError:
-            raise RiotUnknownErrorTypeError('Произошла неизвестная ошибка, пожалуйста, повторите `/login`')
+            raise RiotUnknownErrorTypeError('Произошла неизвестная ошибка, пожалуйста, повторите </login:1150791708892733542>')
         else:
             return region
 
@@ -223,7 +223,7 @@ class Auth:
             return {'auth': 'response', 'data': {'cookie': cookies, 'access_token': access_token, 'token_id': token_id}}
 
         raise RiotMultifactorError(
-            'Не удалось выполнить многофакторную авторизацию. Убедитесь в правильности кода 2FA и повторите `/login`.')
+            'Не удалось выполнить многофакторную авторизацию. Убедитесь в правильности кода 2FA и повторите </login:1150791708892733542>.')
 
     async def redeem_cookies(self, cookies: Dict) -> Tuple[Dict[str, Any], str, str]:
         """This function is used to redeem the cookies."""
@@ -245,10 +245,10 @@ class Auth:
             data = await r.text()
 
         if r.status != 303:
-            raise RiotAuthenticationError('Срок действия cookie-файлов истек, пожалуйста, `/login` повторите!')
+            raise RiotAuthenticationError('Срок действия cookie-файлов истек, пожалуйста, </login:1150791708892733542> повторите!')
 
         if r.headers['Location'].startswith('/login'):
-            raise RiotAuthenticationError('Срок действия cookie-файлов истек, пожалуйста, `/login` повторите!')
+            raise RiotAuthenticationError('Срок действия cookie-файлов истек, пожалуйста, </login:1150791708892733542> повторите!')
 
         old_cookie = cookies.copy()
 
