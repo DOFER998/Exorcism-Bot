@@ -2,7 +2,7 @@ import discord
 
 from data.database import get_sprays, get_buddies_lvl_uuid, get_player_cards, get_player_titles, get_skins_lvl_uuid, \
     get_content_tiers
-from data.settings import png, tiers_color
+from data.settings import png, tiers_color, color
 from utils.apis.in_game.get_store import get_store, get_accessory_store
 from utils.user_check import check_user
 
@@ -61,7 +61,7 @@ class SwitchingBetweenStores(discord.ui.View):
             self.image.disabled = True
             embed = discord.Embed(title=" ",
                                   description=f"Магазин аксессуаров `{user_riot_info['riot']['player_name']}`\nОсталось времени до смены: {accessory_store_info[1]}",
-                                  color=0xf20057)
+                                  color=color.main_color)
             embed.set_author(name=interaction.guild.name, icon_url=interaction.guild.icon.url)
             embed.set_image(url=png.line)
             new_embeds.append(embed)
@@ -70,7 +70,7 @@ class SwitchingBetweenStores(discord.ui.View):
                     sprays = await get_sprays(uuid=item['Offer']['Rewards'][0]['ItemID'])
                     sprays_embed = discord.Embed(title=" ",
                                                  description=f"**{sprays['displayName']['ru-RU']}**\n<:KingdomCreditIcon:1137697058212556840> `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
-                                                 color=0xf20057)
+                                                 color=color.main_color)
                     sprays_embed.set_thumbnail(url=sprays['fullTransparentIcon'] or sprays['displayIcon'])
                     sprays_embed.set_image(url=png.line)
                     new_embeds.append(sprays_embed)
@@ -78,7 +78,7 @@ class SwitchingBetweenStores(discord.ui.View):
                     gun_buddies = await get_buddies_lvl_uuid(uuid=[item['Offer']['Rewards'][0]['ItemID']])
                     gun_buddies_embed = discord.Embed(title=" ",
                                                       description=f"**{gun_buddies['displayName']['ru-RU']}**\n<:KingdomCreditIcon:1137697058212556840> `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
-                                                      color=0xf20057)
+                                                      color=color.main_color)
                     gun_buddies_embed.set_thumbnail(url=gun_buddies['displayIcon'])
                     gun_buddies_embed.set_image(url=png.line)
                     new_embeds.append(gun_buddies_embed)
@@ -86,7 +86,7 @@ class SwitchingBetweenStores(discord.ui.View):
                     player_cards = await get_player_cards(uuid=item['Offer']['Rewards'][0]['ItemID'])
                     player_cards_embed = discord.Embed(title=" ",
                                                        description=f"**{player_cards['displayName']['ru-RU']}**\n<:KingdomCreditIcon:1137697058212556840> `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
-                                                       color=0xFD4554)
+                                                       color=color.main_color)
                     player_cards_embed.set_thumbnail(url=player_cards['largeArt'])
                     player_cards_embed.set_image(url=player_cards['wideArt'])
                     new_embeds.append(player_cards_embed)
@@ -94,7 +94,7 @@ class SwitchingBetweenStores(discord.ui.View):
                     player_titles = await get_player_titles(uuid=item['Offer']['Rewards'][0]['ItemID'])
                     player_titles_embed = discord.Embed(title=player_titles['displayName']['ru-RU'],
                                                         description=f"<:KingdomCreditIcon:1124704861922013295> `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
-                                                        color=0xFD4554)
+                                                        color=color.main_color)
                     player_titles_embed.set_thumbnail(url=png.titles)
                     player_titles_embed.set_image(url=png.line)
                     new_embeds.append(player_titles_embed)
@@ -103,7 +103,7 @@ class SwitchingBetweenStores(discord.ui.View):
             self.image.disabled = False
             embed = discord.Embed(title=" ",
                                   description=f"Ежедневный магазин `{user_riot_info['riot']['player_name']}`\nОсталось времени до смены: {store_info[1]}",
-                                  color=0xf20057)
+                                  color=color.main_color)
             embed.set_author(name=interaction.guild.name, icon_url=interaction.guild.icon.url)
             embed.set_image(url=png.line)
             new_embeds.append(embed)

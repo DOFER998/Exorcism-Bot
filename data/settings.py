@@ -21,6 +21,13 @@ class PNG(BaseSettings):
 
 png = PNG()
 
+
+class Color(BaseSettings):
+    main_color: int = 0xf20057
+
+
+color = Color()
+
 tiers_color = {
     '0cebb8be-46d7-c12a-d306-e9907bfc5a25': 0x009587,
     'e046854e-406c-37f4-6607-19a9ba8426fc': 0xf5955b,

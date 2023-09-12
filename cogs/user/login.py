@@ -5,6 +5,7 @@ from discord.ext.commands import slash_command
 from datetime import datetime, timedelta
 
 from data.database import login_user_in_riot
+from data.settings import color
 from utils.riot_auth.auth import Auth
 from utils.riot_auth.auth_exceptions import RiotRatelimitError, RiotAuthenticationError, RiotUnknownErrorTypeError
 from inter.modals.login_modal import Modal2FALogin
@@ -50,7 +51,7 @@ class Login(commands.Cog):
                 )
                 await login_user_in_riot(user_id=ctx.user.id, data=data)
 
-                embed = discord.Embed(title='Успех!', description=f'Вы вошли в аккаунт `{player_name}`', color=0xf20057)
+                embed = discord.Embed(title='Успех!', description=f'Вы вошли в аккаунт `{player_name}`', color=color.main_color)
                 embed.set_footer(text=f'{ctx.guild.name} • Valorant', icon_url=ctx.guild.icon.url)
                 await ctx.respond(embed=embed, ephemeral=True, delete_after=5)
             elif authenticate['auth'] == '2fa':
@@ -60,15 +61,15 @@ class Login(commands.Cog):
                 modal = Modal2FALogin(ctx.interaction, cookies, message, label)
                 await ctx.send_modal(modal)
         except RiotAuthenticationError as e:
-            embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=0xf20057)
+            embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=color.main_color)
             embed.set_footer(text=f'{ctx.guild.name} • Valorant', icon_url=ctx.guild.icon.url)
             await ctx.respond(embed=embed, ephemeral=True, delete_after=10)
         except RiotRatelimitError as e:
-            embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=0xf20057)
+            embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=color.main_color)
             embed.set_footer(text=f'{ctx.guild.name} • Valorant', icon_url=ctx.guild.icon.url)
             await ctx.respond(embed=embed, ephemeral=True, delete_after=10)
         except RiotUnknownErrorTypeError as e:
-            embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=0xf20057)
+            embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=color.main_color)
             embed.set_footer(text=f'{ctx.guild.name} • Valorant', icon_url=ctx.guild.icon.url)
             await ctx.respond(embed=embed, ephemeral=True, delete_after=10)
 

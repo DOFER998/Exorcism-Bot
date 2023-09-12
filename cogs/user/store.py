@@ -6,7 +6,7 @@ from data.database import get_skins_lvl_uuid, get_content_tiers
 from inter.buttons.skins_buttons import SwitchingBetweenStores
 from utils.apis.in_game.get_store import get_store
 from utils.user_check import check_user
-from data.settings import png, tiers_color
+from data.settings import png, tiers_color, color
 
 
 class Store(commands.Cog):
@@ -25,7 +25,7 @@ class Store(commands.Cog):
         if user_riot_info is None:
             error = discord.Embed(title=" ",
                                   description="Вы не зарегистрированы в нашей системе! Напишите </login:1150791708892733542> чтобы зарегистрироваться!",
-                                  color=0xFD4554)
+                                  color=color.main_color)
             await ctx.respond(embed=error, ephemeral=True, delete_after=5)
         else:
             await ctx.defer()
@@ -40,7 +40,7 @@ class Store(commands.Cog):
 
             embed = discord.Embed(title=" ",
                                   description=f"Ежедневный магазин `{user_riot_info['riot']['player_name']}`\nОсталось времени до смены: {store_info[1]}",
-                                  color=0xf20057)
+                                  color=color.main_color)
             embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon.url)
             embed.set_image(url=png.line)
             embed_list.append(embed)
