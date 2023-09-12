@@ -28,7 +28,6 @@ class Store(commands.Cog):
                                   color=color.main_color)
             await ctx.respond(embed=error, ephemeral=True, delete_after=5)
         else:
-            await ctx.defer()
             store_info = get_store(
                 access_token=user_riot_info['riot']['access_token'],
                 entitlements_token=user_riot_info['riot']['entitlements_token'],
@@ -44,6 +43,7 @@ class Store(commands.Cog):
                 err.set_image(url=png.line)
                 await ctx.respond(embed=err, ephemeral=True, delete_after=5)
             else:
+                await ctx.defer()
                 embed_list = []
 
                 embed = discord.Embed(title=" ",
