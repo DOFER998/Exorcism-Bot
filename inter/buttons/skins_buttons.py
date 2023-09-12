@@ -76,7 +76,6 @@ class SwitchingBetweenStores(discord.ui.View):
                     new_embeds.append(sprays_embed)
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == 'dd3bf334-87f3-40bd-b043-682a57a8dc3a':  # Gun Buddies
                     gun_buddies = await get_buddies_lvl_uuid(uuid=item['Offer']['Rewards'][0]['ItemID'])
-                    print(gun_buddies)
                     gun_buddies_embed = discord.Embed(title=gun_buddies['displayName']['ru-RU'],
                                                       description=f"{emoji.k_credit} `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
                                                       color=color.main_color)
