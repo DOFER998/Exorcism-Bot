@@ -71,8 +71,7 @@ class SwitchingBetweenStores(discord.ui.View):
                     sprays_embed = discord.Embed(title=sprays['displayName']['ru-RU'],
                                                  description=f"{emoji.k_credit} `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
                                                  color=color.main_color)
-                    sprays_embed.set_thumbnail(url=sprays['fullTransparentIcon'] or sprays['displayIcon'])
-                    # sprays_embed.set_thumbnail(url=sprays['animationGif'] if sprays['animationGif'] is None else sprays['fullTransparentIcon'] or sprays['displayIcon'])
+                    sprays_embed.set_thumbnail(url=sprays['animationGif'] if sprays['animationGif'] is not None else sprays['fullTransparentIcon'] or sprays['displayIcon'])
                     sprays_embed.set_image(url=png.line)
                     new_embeds.append(sprays_embed)
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == 'dd3bf334-87f3-40bd-b043-682a57a8dc3a':  # Gun Buddies
