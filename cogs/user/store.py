@@ -4,7 +4,7 @@ from discord.ext.commands import slash_command
 
 from data.database import get_skins_lvl_uuid, get_content_tiers
 from inter.buttons.skins_buttons import SwitchingBetweenStores
-from utils.apis.in_game.get_store import get_store
+from utils.apis.in_game.get_store import GetStore
 from utils.user_check import check_user
 from data.settings import png, tiers_color, color, emoji
 
@@ -28,12 +28,13 @@ class Store(commands.Cog):
                                   color=color.main_color)
             await ctx.respond(embed=error, ephemeral=True, delete_after=5)
         else:
-            store_info = get_store(
+            get_store = GetStore(
                 access_token=user_riot_info['riot']['access_token'],
                 entitlements_token=user_riot_info['riot']['entitlements_token'],
                 region=user_riot_info['riot']['region'],
                 puuid=user_riot_info['riot']['puuid']
             )
+            store_info = await get_store.get_daily_store()
 
             if store_info is None:
                 err = discord.Embed(title='ОШИБКА!', description='Произошла известная для нас ошибка, мы работаем над '

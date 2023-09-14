@@ -3,7 +3,7 @@ import discord
 from data.database import get_sprays, get_buddies_lvl_uuid, get_player_cards, get_player_titles, get_skins_lvl_uuid, \
     get_content_tiers
 from data.settings import png, tiers_color, color, emoji
-from utils.apis.in_game.get_store import get_store, get_accessory_store
+from utils.apis.in_game.get_store import GetStore
 from utils.user_check import check_user
 
 
@@ -43,18 +43,14 @@ class SwitchingBetweenStores(discord.ui.View):
     @discord.ui.button(style=discord.ButtonStyle.blurple, label='Магазин аксессуаров', custom_id='daily_shop')
     async def shop(self, button: discord.ui.Button, interaction: discord.Interaction):
         user_riot_info = await check_user(user_id=str(interaction.message.interaction.user.id))
-        store_info = get_store(
+        get_store = GetStore(
             access_token=user_riot_info['riot']['access_token'],
             entitlements_token=user_riot_info['riot']['entitlements_token'],
             region=user_riot_info['riot']['region'],
             puuid=user_riot_info['riot']['puuid']
         )
-        accessory_store_info = get_accessory_store(
-            access_token=user_riot_info['riot']['access_token'],
-            entitlements_token=user_riot_info['riot']['entitlements_token'],
-            region=user_riot_info['riot']['region'],
-            puuid=user_riot_info['riot']['puuid']
-        )
+        store_info = await get_store.get_daily_store()
+        accessory_store_info = await get_store.get_accessory_store()
         new_embeds = []
         if 'Магазин аксессуаров' in button.label:
             new_label = 'Ежедневный магазин'
