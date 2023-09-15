@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     owner_id_0: int = 123
     owner_id_1: int = 123
     guild_id: int = 123
+    error_channel_id: int = 123
 
 
 settings = Settings(

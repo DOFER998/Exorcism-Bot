@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 
 from data.database import login_user_in_riot
 from data.settings import color
+from inter.embed.error_embed import error_pass, error_rate_limit, error_unknown_error_type
 from utils.riot_auth.auth import Auth
 from utils.riot_auth.auth_exceptions import RiotRatelimitError, RiotAuthenticationError, RiotUnknownErrorTypeError
 from inter.modals.login_modal import Modal2FALogin
@@ -65,14 +66,17 @@ class Login(commands.Cog):
             embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=color.main_color)
             embed.set_footer(text=f'{ctx.guild.name} • Valorant', icon_url=ctx.guild.icon.url)
             await ctx.respond(embed=embed, ephemeral=True, delete_after=10)
+            await self.bot.error_channel.send(embed=error_pass(user_id=ctx.user.id))
         except RiotRatelimitError as e:
             embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=color.main_color)
             embed.set_footer(text=f'{ctx.guild.name} • Valorant', icon_url=ctx.guild.icon.url)
             await ctx.respond(embed=embed, ephemeral=True, delete_after=10)
+            await self.bot.error_channel.send(embed=error_rate_limit(user_id=ctx.user.id))
         except RiotUnknownErrorTypeError as e:
             embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=color.main_color)
             embed.set_footer(text=f'{ctx.guild.name} • Valorant', icon_url=ctx.guild.icon.url)
             await ctx.respond(embed=embed, ephemeral=True, delete_after=10)
+            await self.bot.error_channel.send(embed=error_unknown_error_type(user_id=ctx.user.id))
 
 
 def setup(bot):
