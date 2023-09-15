@@ -11,6 +11,7 @@ class Ping(commands.Cog):
         self.bot = bot
 
     @slash_command(name="ping", description="Пинг и состояние бота в реальном времени")
+    @commands.guild_only()
     @commands.is_owner()
     async def ping(
             self,

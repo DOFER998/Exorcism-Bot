@@ -10,6 +10,7 @@ class Skin(commands.Cog):
         self.bot = bot
 
     @slash_command(name='skin', description='Поиск скина для оружия VALORANT.')
+    @commands.guild_only()
     async def skin(
             self,
             ctx: discord.ApplicationContext,

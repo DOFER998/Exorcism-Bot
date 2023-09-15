@@ -15,6 +15,7 @@ class Store(commands.Cog):
         self.bot = bot
 
     @slash_command(name="store", description="Показывает ваш магазин повседневных товаров и аксессуаров")
+    @commands.guild_only()
     async def store(
             self,
             ctx: discord.ApplicationContext,

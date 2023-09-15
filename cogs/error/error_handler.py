@@ -26,6 +26,9 @@ class ErrorHandler(commands.Cog):
             handled = True
             await send_error("Извините, только владелец бота и сообщества может использовать эту команду!",
                              delete_after=10)
+        if isinstance(error, commands.NoPrivateMessage):
+            handled = True
+            await send_error("Вы не можете использовать эту команду в DM.", delete_after=10)
 
 
 def setup(bot):

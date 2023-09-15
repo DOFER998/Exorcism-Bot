@@ -12,6 +12,7 @@ class Feedback(commands.Cog):
         self.bot = bot
 
     @slash_command(name='feedback', description='Оставьте свой отзыв')
+    @commands.guild_only()
     async def feedback(
             self,
             ctx: discord.ApplicationContext,

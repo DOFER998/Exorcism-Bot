@@ -17,6 +17,7 @@ class Login(commands.Cog):
         self.bot = bot
 
     @slash_command(name="login", description="Вход в систему с помощью учетной записи Riot")
+    @commands.guild_only()
     async def login(
             self,
             ctx: discord.ApplicationContext,
