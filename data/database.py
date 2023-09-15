@@ -1,7 +1,8 @@
 import motor.motor_asyncio
 
 from data.settings import settings
-from utils.apis.officer.models import version
+from utils.apis.officer.models import version, skins as s, content_tiers as c, sprays as sp, buddies as b, \
+    player_cards as pc, player_titles as pt
 
 cluster = motor.motor_asyncio.AsyncIOMotorClient(settings.mongodb_url)
 users = cluster.Exorcism_Bot.users
@@ -264,31 +265,31 @@ async def get_user(user_id):
     return info
 
 
-async def get_skins_lvl_uuid(uuid):
+async def get_skins_lvl_uuid(uuid) -> s.Skins:
     info = await skins.find_one({"levels.uuid": uuid})
-    return info
+    return s.Skins.model_validate(info)
 
 
-async def get_content_tiers(uuid):
+async def get_content_tiers(uuid) -> c.ContentTiers:
     info = await content_tiers.find_one({"_id": uuid})
-    return info
+    return c.ContentTiers.model_validate(info)
 
 
-async def get_sprays(uuid):
+async def get_sprays(uuid) -> sp.Sprays:
     info = await sprays.find_one({"_id": uuid})
-    return info
+    return sp.Sprays.model_validate(info)
 
 
-async def get_buddies_lvl_uuid(uuid):
+async def get_buddies_lvl_uuid(uuid) -> b.Buddies:
     info = await buddies.find_one({"levels.uuid": uuid})
-    return info
+    return b.Buddies.model_validate(info)
 
 
-async def get_player_cards(uuid):
+async def get_player_cards(uuid) -> pc.PlayerCards:
     info = await player_cards.find_one({"_id": uuid})
-    return info
+    return pc.PlayerCards.model_validate(info)
 
 
-async def get_player_titles(uuid):
+async def get_player_titles(uuid) -> pt.PlayerTitles:
     info = await player_titles.find_one({"_id": uuid})
-    return info
+    return pt.PlayerTitles.model_validate(info)

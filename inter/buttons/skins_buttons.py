@@ -64,31 +64,32 @@ class SwitchingBetweenStores(discord.ui.View):
             for item in accessory_store_info[0]:
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == 'd5f120f8-ff8c-4aac-92ea-f2b5acbe9475':  # Sprays
                     sprays = await get_sprays(uuid=item['Offer']['Rewards'][0]['ItemID'])
-                    sprays_embed = discord.Embed(title=sprays['displayName']['ru-RU'],
+                    sprays_embed = discord.Embed(title=sprays.displayName.ru_RU,
                                                  description=f"{emoji.k_credit} `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
                                                  color=color.main_color)
-                    sprays_embed.set_thumbnail(url=sprays['animationGif'] if sprays['animationGif'] is not None else sprays['fullTransparentIcon'] or sprays['displayIcon'])
+                    sprays_embed.set_thumbnail(
+                        url=sprays.animationGif if sprays.animationGif is not None else sprays.fullTransparentIcon or sprays.displayIcon)
                     sprays_embed.set_image(url=png.line)
                     new_embeds.append(sprays_embed)
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == 'dd3bf334-87f3-40bd-b043-682a57a8dc3a':  # Gun Buddies
                     gun_buddies = await get_buddies_lvl_uuid(uuid=item['Offer']['Rewards'][0]['ItemID'])
-                    gun_buddies_embed = discord.Embed(title=gun_buddies['displayName']['ru-RU'],
+                    gun_buddies_embed = discord.Embed(title=gun_buddies.displayName.ru_RU,
                                                       description=f"{emoji.k_credit} `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
                                                       color=color.main_color)
-                    gun_buddies_embed.set_thumbnail(url=gun_buddies['levels'][0]['displayIcon'])
+                    gun_buddies_embed.set_thumbnail(url=gun_buddies.levels[0].displayIcon)
                     gun_buddies_embed.set_image(url=png.line)
                     new_embeds.append(gun_buddies_embed)
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == '3f296c07-64c3-494c-923b-fe692a4fa1bd':  # Player Cards
                     player_cards = await get_player_cards(uuid=item['Offer']['Rewards'][0]['ItemID'])
-                    player_cards_embed = discord.Embed(title=player_cards['displayName']['ru-RU'],
+                    player_cards_embed = discord.Embed(title=player_cards.displayName.ru_RU,
                                                        description=f"{emoji.k_credit} `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
                                                        color=color.main_color)
-                    player_cards_embed.set_thumbnail(url=player_cards['largeArt'])
-                    player_cards_embed.set_image(url=player_cards['wideArt'])
+                    player_cards_embed.set_thumbnail(url=player_cards.largeArt)
+                    player_cards_embed.set_image(url=player_cards.wideArt)
                     new_embeds.append(player_cards_embed)
                 if item['Offer']['Rewards'][0]['ItemTypeID'] == 'de7caa6b-adf7-4588-bbd1-143831e786c6':  # Player titles
                     player_titles = await get_player_titles(uuid=item['Offer']['Rewards'][0]['ItemID'])
-                    player_titles_embed = discord.Embed(title=player_titles['displayName']['ru-RU'],
+                    player_titles_embed = discord.Embed(title=player_titles.displayName.ru_RU,
                                                         description=f"{emoji.k_credit} `{item['Offer']['Cost']['85ca954a-41f2-ce94-9b45-8ca3dd39a00d']}`",
                                                         color=color.main_color)
                     player_titles_embed.set_thumbnail(url=png.titles)
@@ -105,12 +106,12 @@ class SwitchingBetweenStores(discord.ui.View):
             new_embeds.append(embed)
             for skin in store_info[0]:
                 skin_info = await get_skins_lvl_uuid(skin['id'])
-                tiers = await get_content_tiers(skin_info['contentTierUuid'])
+                tiers = await get_content_tiers(skin_info.contentTierUuid)
                 skin_embed = discord.Embed(title=" ",
                                            description=f"{emoji.v_point} `{skin['cost']}`",
-                                           color=tiers_color[skin_info['contentTierUuid']])
-                skin_embed.set_author(name=skin_info['displayName']['en-US'], icon_url=tiers['displayIcon'])
-                skin_embed.set_thumbnail(url=skin_info['levels'][0]['displayIcon'])
+                                           color=tiers_color[skin_info.contentTierUuid])
+                skin_embed.set_author(name=skin_info.displayName.en_US, icon_url=tiers.displayIcon)
+                skin_embed.set_thumbnail(url=skin_info.levels[0].displayIcon)
                 skin_embed.set_image(url=png.line)
                 new_embeds.append(skin_embed)
         button.label = new_label
