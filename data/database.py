@@ -250,6 +250,7 @@ async def login_user_in_riot_update(user_id, cookie, access_token, expiry_token,
     await users.update_one({"_id": str(user_id)}, {
         "$set": {"riot.cookie": cookie, "riot.access_token": access_token, "riot.expiry_token": expiry_token,
                  "riot.entitlements_token": entitlements_token}})
+    return await users.find_one({"_id": str(user_id)})
 
 
 # get info
