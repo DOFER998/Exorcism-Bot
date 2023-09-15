@@ -55,12 +55,12 @@ class Store(commands.Cog):
                 embed_list.append(embed)
                 for skin in store_info[0]:
                     skin_info = await get_skins_lvl_uuid(skin['id'])
-                    tiers = await get_content_tiers(skin_info['contentTierUuid'])
+                    tiers = await get_content_tiers(skin_info.contentTierUuid)
                     skin_embed = discord.Embed(title=" ",
                                                description=f"{emoji.v_point} `{skin['cost']}`",
-                                               color=tiers_color[skin_info['contentTierUuid']])
-                    skin_embed.set_author(name=skin_info['displayName']['en-US'], icon_url=tiers['displayIcon'])
-                    skin_embed.set_thumbnail(url=skin_info['levels'][0]['displayIcon'])
+                                               color=tiers_color[skin_info.contentTierUuid])
+                    skin_embed.set_author(name=skin_info.displayName.en_US, icon_url=tiers.displayIcon)
+                    skin_embed.set_thumbnail(url=skin_info.levels[0].displayIcon)
                     skin_embed.set_image(url=png.line)
                     embed_list.append(skin_embed)
                 await ctx.respond(embeds=embed_list, view=SwitchingBetweenStores(interaction=ctx.interaction))
