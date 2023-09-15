@@ -2,7 +2,8 @@ import discord
 
 from data.settings import settings
 
-bot = discord.Bot(intents=discord.Intents.all(), owner_id=settings.owner_id, debug_guild=settings.guild_id)
+bot = discord.Bot(intents=discord.Intents.all(), owner_ids=[settings.owner_id_0, settings.owner_id_1],
+                  debug_guild=settings.guild_id)
 
 
 @bot.event
@@ -14,6 +15,7 @@ async def on_ready():
 
 extensions = [
     # --------------------admin commands
+    'cogs.admin.ping',
     # --------------------user commands
     'cogs.user.login',
     'cogs.user.store',
@@ -21,6 +23,8 @@ extensions = [
     # --------------------system commands
     'cogs.bg.bot_control',
     'cogs.bg.update_cache',
+    # --------------------error commands
+    'cogs.error.error_handler',
 ]
 
 if __name__ == '__main__':

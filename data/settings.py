@@ -4,7 +4,8 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     mongodb_url: str = 'mongodb://localhost:27017'
     token: str = 'token'
-    owner_id: int = 123
+    owner_id_0: int = 123
+    owner_id_1: int = 123
     guild_id: int = 123
 
 
@@ -17,6 +18,10 @@ settings = Settings(
 class PNG(BaseSettings):
     line: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1137835970457243648/1.png'
     titles: str = 'https://media.discordapp.net/attachments/1137752998525800538/1150975980958134332/ace-title_valorant_icon_50326.png?width=384&height=242'
+    syntax: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196292538269706/syntax.png'
+    bad: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196292924153966/bad.png'
+    good: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196293272285225/good.png'
+    excellent: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196293624594472/excellent.png'
 
 
 png = PNG()
