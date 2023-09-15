@@ -2,17 +2,19 @@ import discord
 from datetime import datetime, timedelta
 
 from data.database import login_user_in_riot
+from inter.embed.error_embed import error_2fa
 from utils.riot_auth.auth import Auth
 from utils.riot_auth.auth_exceptions import RiotMultifactorError
 
 
 class Modal2FALogin(discord.ui.Modal):
-    def __init__(self, interaction: discord.Interaction, cookie: dict, message: str, label: str) -> None:
+    def __init__(self, interaction: discord.Interaction, cookie: dict, message: str, label: str, bot) -> None:
         super().__init__(title='Двухфакторная аутентификация', timeout=180.0)
         self.interaction: discord.Interaction = interaction
         self.cookie = cookie
         self.placeholder = message
         self.label = label
+        self.bot = bot
 
         self.add_item(
             discord.ui.InputText(label=self.label, placeholder=self.placeholder, min_length=6, max_length=6)
@@ -59,3 +61,4 @@ class Modal2FALogin(discord.ui.Modal):
             embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=0xf20057)
             embed.set_footer(text=f'{interaction.guild.name} • Valorant', icon_url=interaction.guild.icon.url)
             await interaction.followup.send(embed=embed, ephemeral=True, delete_after=10)
+            await self.bot.error_channel.send(embed=error_2fa(user_id=interaction.user.id))

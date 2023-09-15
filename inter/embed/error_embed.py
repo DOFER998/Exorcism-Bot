@@ -13,6 +13,11 @@ def error_pass(user_id):
         .set_image(url=png.line)
 
 
+def error_2fa(user_id):
+    return ErrorEmbed(description=f'Пользователь <@{user_id}> совершил ошибку в коде 2FA') \
+        .set_image(url=png.line)
+
+
 def error_rate_limit(user_id):
     return ErrorEmbed(description=f'Пользователь <@{user_id}> получил ограниечение от Riot') \
         .set_image(url=png.line)

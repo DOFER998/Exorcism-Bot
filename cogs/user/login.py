@@ -60,7 +60,7 @@ class Login(commands.Cog):
                 cookies = authenticate['cookie']
                 message = authenticate['message']
                 label = authenticate['label']
-                modal = Modal2FALogin(ctx.interaction, cookies, message, label)
+                modal = Modal2FALogin(ctx.interaction, cookies, message, label, self.bot)
                 await ctx.send_modal(modal)
         except RiotAuthenticationError as e:
             embed = discord.Embed(title='ОШИБКА!', description=f'{e}', color=color.main_color)
