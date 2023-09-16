@@ -12,7 +12,7 @@ class SwitchingBetweenStores(discord.ui.View):
     def __init__(self, interaction: discord.Interaction):
         super().__init__(timeout=30, disable_on_timeout=True)
         self.interaction = interaction
-        self.cooldown = commands.CooldownMapping.from_cooldown(1, 60, commands.BucketType.member)
+        self.cooldown = commands.CooldownMapping.from_cooldown(1, 60, commands.BucketType.user)
 
     async def on_timeout(self) -> None:
         try:
@@ -32,7 +32,7 @@ class SwitchingBetweenStores(discord.ui.View):
     @discord.ui.button(style=discord.ButtonStyle.green,
                        emoji=discord.PartialEmoji.from_str(emoji.expand), custom_id="expand_store")
     async def image(self, button: discord.ui.Button, interaction: discord.Interaction):
-        bucket = self.cooldown.get_bucket(interaction.message)
+        bucket = self.cooldown.get_bucket(interaction.message.interaction.user.id)
         retry = bucket.get_retry_after()
         new_embeds = []
         if retry:
@@ -59,7 +59,7 @@ class SwitchingBetweenStores(discord.ui.View):
 
     @discord.ui.button(style=discord.ButtonStyle.blurple, label='Магазин аксессуаров', custom_id='daily_shop')
     async def shop(self, button: discord.ui.Button, interaction: discord.Interaction):
-        bucket = self.cooldown.get_bucket(interaction.message)
+        bucket = self.cooldown.get_bucket(interaction.message.interaction.user.id)
         retry = bucket.get_retry_after()
         if retry:
             return await interaction.response.send_message(
