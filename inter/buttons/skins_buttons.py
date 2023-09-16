@@ -13,9 +13,12 @@ class SwitchingBetweenStores(discord.ui.View):
         self.interaction = interaction
 
     async def on_timeout(self) -> None:
-        for item in self.children:
-            item.disabled = True
-        await self.interaction.edit_original_response(view=self)
+        try:
+            for item in self.children:
+                item.disabled = True
+            await self.interaction.edit_original_response(view=self)
+        except discord.errors.NotFound:
+            pass
 
     @discord.ui.button(style=discord.ButtonStyle.green,
                        emoji=discord.PartialEmoji.from_str(emoji.expand), custom_id="expand_store")
