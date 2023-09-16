@@ -130,7 +130,7 @@ async def weapons_cache():
 
 async def skins_cache():
     for skin in skins.skins:
-        s= {"_id": skin['uuid']} | skin
+        s = {"_id": skin['uuid']} | skin
         await add_skins_in_db(data=s)
 
 
