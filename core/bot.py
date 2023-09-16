@@ -10,6 +10,7 @@ class Exorcist(commands.Bot):
             activity=discord.Activity(
                 type=discord.ActivityType.competing, name='Valorant❤️'
             ),
+            status=discord.Status.do_not_disturb,
             intents=discord.Intents.all(),
             allowed_mentions=discord.AllowedMentions.all(),
             owner_ids=[settings.owner_id_0, settings.owner_id_1],
