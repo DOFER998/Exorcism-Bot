@@ -23,21 +23,20 @@ class SwitchingBetweenStores(discord.ui.View):
             pass
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        bucket = self.cooldown.get_bucket(interaction.message)
+        retry = bucket.update_rate_limit()
+        if retry:
+            await interaction.response.send_message(f'Притормозите! Повторите попытку через {round(retry, 1)} секунду.', ephemeral=True, delete_after=10)
+            return False
         if interaction.message.interaction is not None:
             if interaction.user.id != interaction.message.interaction.user.id:
                 await interaction.response.send_message("Эти кнопки не для тебя!", ephemeral=True, delete_after=10)
                 return False
         return True
 
-    @discord.ui.button(style=discord.ButtonStyle.green,
-                       emoji=discord.PartialEmoji.from_str(emoji.expand), custom_id="expand_store")
+    @discord.ui.button(style=discord.ButtonStyle.green, emoji=discord.PartialEmoji.from_str(emoji.expand), custom_id="expand_store")
     async def image(self, button: discord.ui.Button, interaction: discord.Interaction):
-        bucket = self.cooldown.get_bucket(interaction.message)
-        retry = bucket.get_retry_after()
         new_embeds = []
-        if retry:
-            return await interaction.response.send_message(
-                f'Притормозите! Повторите попытку через {round(retry, 1)} секунду.', ephemeral=True, delete_after=10)
         for embed in interaction.message.embeds:
             if (type(embed.image.url) == str and "nm" in embed.image.url.lower()) or (
                     type(embed.thumbnail.url) == str and "nm" in embed.thumbnail.url.lower()):
@@ -59,11 +58,6 @@ class SwitchingBetweenStores(discord.ui.View):
 
     @discord.ui.button(style=discord.ButtonStyle.blurple, label='Магазин аксессуаров', custom_id='daily_shop')
     async def shop(self, button: discord.ui.Button, interaction: discord.Interaction):
-        bucket = self.cooldown.get_bucket(interaction.message)
-        retry = bucket.get_retry_after()
-        if retry:
-            return await interaction.response.send_message(
-                f'Притормозите! Повторите попытку через {round(retry, 1)} секунду.', ephemeral=True, delete_after=10)
         user_riot_info = await check_user(user_id=str(interaction.message.interaction.user.id))
         get_store = GetStore(
             access_token=user_riot_info['riot']['access_token'],
