@@ -12,7 +12,7 @@ class SwitchingBetweenStores(discord.ui.View):
     def __init__(self, interaction: discord.Interaction):
         super().__init__(timeout=30, disable_on_timeout=True)
         self.interaction = interaction
-        self.cooldown = commands.CooldownMapping.from_cooldown(3, 5, commands.BucketType.member)
+        self.cooldown = commands.CooldownMapping.from_cooldown(1, 60, commands.BucketType.member)
 
     async def on_timeout(self) -> None:
         try:
