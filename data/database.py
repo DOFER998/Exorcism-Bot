@@ -293,3 +293,8 @@ async def get_player_cards(uuid) -> pc.PlayerCards:
 async def get_player_titles(uuid) -> pt.PlayerTitles:
     info = await player_titles.find_one({"_id": uuid})
     return pt.PlayerTitles.model_validate(info)
+
+
+# remove info
+async def leave_user(user_id):
+    await users.delete_one({"_id": user_id})
