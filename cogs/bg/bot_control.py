@@ -1,3 +1,4 @@
+import asyncio
 import discord
 from discord.ext import commands
 
@@ -11,10 +12,18 @@ class BotControl(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        ...
+        try:
+            if not message.author.bot:
+                await asyncio.sleep(1)
+                await message.delete()
+                await message.author.send(
+                    'Для того чтобы отправить свою анкету в канал <#1137753089353465866> напишите команду `/questionnaire`')
+        except discord.errors.Forbidden:
+            print(f'Я не смог отправить сообщение пользователю {message.author.name}|{message.author.id}')
 
     @commands.Cog.listener()
-    async def on_voice_state_update(self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState):
+    async def on_voice_state_update(self, member: discord.Member, before: discord.VoiceState,
+                                    after: discord.VoiceState):
         ...
 
     @commands.Cog.listener()

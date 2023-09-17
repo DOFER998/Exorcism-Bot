@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from data.settings import settings
+from data.settings import settings, text_channels
 
 
 class Exorcist(commands.Bot):
@@ -24,6 +24,14 @@ class Exorcist(commands.Bot):
     def error_channel(self):
         return self.get_guild(settings.guild_id).get_channel(settings.error_channel_id)
 
+    @property
+    def questionnaire_channel(self):
+        return self.get_guild(settings.guild_id).get_channel(text_channels.questionnaire)
+
+    @property
+    def approve_questionnaire_channel(self):
+        return self.get_guild(settings.guild_id).get_channel(text_channels.approve_questionnaire)
+
     async def shutdown(self):
         await self.close()
 
@@ -35,6 +43,7 @@ class Exorcist(commands.Bot):
             'cogs.user.login',
             'cogs.user.store',
             'cogs.user.feedback',
+            'cogs.user.questionnaire',
             # --------------------system commands
             'cogs.bg.bot_control',
             'cogs.bg.update_cache',

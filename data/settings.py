@@ -40,6 +40,8 @@ class Emoji(BaseSettings):
     k_credit: str = '<:KingdomCreditIcon:1137697058212556840>'
     expand: str = '<:expand:1122514948694757377>'
     shrink: str = '<:shrink:1122514947172216972>'
+    yes: str = '<a:agree:1147230818163499009>'
+    no: str = '<a:dontagree:1147230866083422259>'
 
 
 emoji = Emoji()
@@ -52,6 +54,14 @@ class FeedbackChannelsId(BaseSettings):
 
 
 feedback = FeedbackChannelsId()
+
+
+class TextChannelsIds(BaseSettings):
+    questionnaire: int = 1137753089353465866
+    approve_questionnaire: int = 1153066879812911275
+
+
+text_channels = TextChannelsIds()
 
 tiers_color = {
     '0cebb8be-46d7-c12a-d306-e9907bfc5a25': 0x009587,
