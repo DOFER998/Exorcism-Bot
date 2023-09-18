@@ -29,7 +29,7 @@ png = PNG()
 
 
 class Color(BaseSettings):
-    main_color: int = 0xf20057
+    main_color: int = 0xff4557
 
 
 color = Color()
