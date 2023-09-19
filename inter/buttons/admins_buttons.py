@@ -1,6 +1,8 @@
+import datetime
+
 import discord
 
-from data.settings import emoji
+from data.settings import emoji, color
 
 
 class ApproveQuestionnaire(discord.ui.View):
@@ -16,6 +18,14 @@ class ApproveQuestionnaire(discord.ui.View):
         for embed in interaction.message.embeds:
             new_embeds.append(embed)
         message = await self.bot.questionnaire_channel.send(embeds=new_embeds)
+        logs = discord.Embed(title='Анкета подтверждена',
+                             description=f'Была подтверждена анкета: [прыгнуть к анкете]({interaction.message.jump_url})',
+                             color=color.main_color)
+        logs.add_field(name='Ответственный за действие:', value=interaction.user.mention, inline=False)
+        logs.set_thumbnail(url=interaction.user.display_avatar or interaction.user.default_avatar)
+        logs.set_footer(text=interaction.guild.name, icon_url=interaction.guild.icon.url)
+        logs.timestamp = datetime.datetime.now()
+        await self.bot.approve_logs_questionnaire_channel.send(embed=logs)
         await self.bot.questionnaire_channel.create_thread(name='💭・Обсуждение', message=message)
         await interaction.response.edit_message(view=self)
 
@@ -23,4 +33,12 @@ class ApproveQuestionnaire(discord.ui.View):
     async def no(self, button: discord.ui.Button, interaction: discord.Interaction):
         self.yes.disabled = True
         self.no.disabled = True
+        logs = discord.Embed(title='Анкета отклонена',
+                             description=f'Была отклонена анкета: [прыгнуть к анкете]({interaction.message.jump_url})',
+                             color=color.main_color)
+        logs.add_field(name='Ответственный за действие:', value=interaction.user.mention, inline=False)
+        logs.set_thumbnail(url=interaction.user.display_avatar or interaction.user.default_avatar)
+        logs.set_footer(text=interaction.guild.name, icon_url=interaction.guild.icon.url)
+        logs.timestamp = datetime.datetime.now()
+        await self.bot.approve_logs_questionnaire_channel.send(embed=logs)
         await interaction.response.edit_message(view=self)

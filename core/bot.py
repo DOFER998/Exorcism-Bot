@@ -32,6 +32,10 @@ class Exorcist(commands.Bot):
     def approve_questionnaire_channel(self):
         return self.get_guild(settings.guild_id).get_channel(text_channels.approve_questionnaire)
 
+    @property
+    def approve_logs_questionnaire_channel(self):
+        return self.get_guild(settings.guild_id).get_channel(text_channels.approve_questionnaire)
+
     async def shutdown(self):
         await self.close()
 

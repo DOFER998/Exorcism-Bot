@@ -59,6 +59,7 @@ feedback = FeedbackChannelsId()
 class TextChannelsIds(BaseSettings):
     questionnaire: int = 1137753089353465866
     approve_questionnaire: int = 1153066879812911275
+    approve_logs_questionnaire: int = 1153648380933840987
 
 
 text_channels = TextChannelsIds()
