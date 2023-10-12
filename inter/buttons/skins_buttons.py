@@ -26,7 +26,8 @@ class SwitchingBetweenStores(discord.ui.View):
         bucket = self.cooldown.get_bucket(interaction.message)
         retry = bucket.update_rate_limit()
         if retry:
-            await interaction.response.send_message(f'Притормозите! Повторите попытку через {round(retry, 1)} секунду.', ephemeral=True, delete_after=10)
+            await interaction.response.send_message(f'Притормозите! Повторите попытку через {round(retry, 1)} секунду.',
+                                                    ephemeral=True, delete_after=10)
             return False
         if interaction.message.interaction is not None:
             if interaction.user.id != interaction.message.interaction.user.id:
@@ -34,7 +35,8 @@ class SwitchingBetweenStores(discord.ui.View):
                 return False
         return True
 
-    @discord.ui.button(style=discord.ButtonStyle.green, emoji=discord.PartialEmoji.from_str(emoji.expand), custom_id="expand_store")
+    @discord.ui.button(style=discord.ButtonStyle.green, emoji=discord.PartialEmoji.from_str(emoji.expand),
+                       custom_id="expand_store")
     async def image(self, button: discord.ui.Button, interaction: discord.Interaction):
         new_embeds = []
         for embed in interaction.message.embeds:
@@ -131,4 +133,56 @@ class SwitchingBetweenStores(discord.ui.View):
                 skin_embed.set_image(url=png.line)
                 new_embeds.append(skin_embed)
         button.label = new_label
+        await interaction.response.edit_message(embeds=new_embeds, view=self)
+
+
+class ThumbnailToImageOnly(discord.ui.View):
+    def __init__(self, interaction: discord.Interaction):
+        super().__init__(timeout=60, disable_on_timeout=True)
+        self.interaction = interaction
+        self.cooldown = commands.CooldownMapping.from_cooldown(2, 6, commands.BucketType.member)
+
+    async def on_timeout(self) -> None:
+        try:
+            for item in self.children:
+                item.disabled = True
+            await self.interaction.edit_original_response(view=self)
+        except discord.errors.NotFound:
+            pass
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        bucket = self.cooldown.get_bucket(interaction.message)
+        retry = bucket.update_rate_limit()
+        if retry:
+            await interaction.response.send_message(
+                f'Притормозите! Повторите попытку через {round(retry, 1)} секунду.', ephemeral=True,
+                delete_after=10)
+            return False
+        if interaction.message.interaction is not None:
+            if interaction.user.id != interaction.message.interaction.user.id:
+                await interaction.response.send_message("Эти кнопки не для тебя!", ephemeral=True, delete_after=10)
+                return False
+        return True
+
+    @discord.ui.button(style=discord.ButtonStyle.green, emoji=discord.PartialEmoji.from_str(emoji.expand),
+                       custom_id="expand_store")
+    async def image(self, button: discord.ui.Button, interaction: discord.Interaction):
+        new_embeds = []
+        for embed in interaction.message.embeds:
+            if (type(embed.image.url) == str and "nm" in embed.image.url.lower()) or (
+                    type(embed.thumbnail.url) == str and "nm" in embed.thumbnail.url.lower()):
+                new_embeds.append(embed)
+                continue
+            if 'expand' in button.emoji.name:
+                new_emoji = discord.PartialEmoji.from_str(emoji.shrink)
+                if embed.thumbnail:
+                    embed.set_image(url=embed.thumbnail.url)
+                    embed.set_thumbnail(url=discord.Embed.Empty)
+            elif 'shrink' in button.emoji.name:
+                new_emoji = discord.PartialEmoji.from_str(emoji.expand)
+                if embed.image:
+                    embed.set_thumbnail(url=embed.image.url)
+                    embed.set_image(url=png.line)
+            new_embeds.append(embed)
+        button.emoji = new_emoji
         await interaction.response.edit_message(embeds=new_embeds, view=self)

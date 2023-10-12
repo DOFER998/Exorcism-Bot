@@ -50,3 +50,23 @@ class GetStore(httpx.AsyncClient):
         await session.aclose()
         return item, format_dt(
             datetime.utcnow() + timedelta(seconds=panel['AccessoryStoreRemainingDurationInSeconds']))
+
+    async def get_night_market(self) -> (list[str], str):
+        try:
+            session = GetStore(self.access_token, self.entitlements_token, self.region, self.puuid)
+            r = await session.get(f'/store/v2/storefront/{self.puuid}')
+            data = r.json()
+            night_market = data["BonusStore"]
+            night_market_offers = night_market["BonusStoreOffers"]
+            skins = []
+            for item in night_market_offers:
+                uuid: str = item["Offer"]["OfferID"].lower()
+                og_cost: int = item["Offer"]["Cost"]["85ad13f7-3d1b-5128-9eb2-7cd8ee0b5741"]
+                discounted_p: int = item["DiscountPercent"]
+                discounted_cost: int = item["DiscountCosts"]["85ad13f7-3d1b-5128-9eb2-7cd8ee0b5741"]
+                skins.append(
+                    {'id': uuid, 'og_cost': og_cost, 'discounted_p': discounted_p, 'discounted_cost': discounted_cost})
+            return skins, format_dt(
+                datetime.utcnow() + timedelta(seconds=night_market["BonusStoreRemainingDurationInSeconds"]))
+        except KeyError:
+            return None

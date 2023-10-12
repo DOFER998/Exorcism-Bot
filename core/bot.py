@@ -46,6 +46,7 @@ class Exorcist(commands.Bot):
             # --------------------user commands
             'cogs.user.login',
             'cogs.user.store',
+            'cogs.user.nightmarket',
             'cogs.user.feedback',
             'cogs.user.questionnaire',
             # --------------------system commands
