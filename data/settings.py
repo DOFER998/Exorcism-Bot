@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    mongodb_url: str = 'mongodb://localhost:27017'
+    mongodb_url: str = 'mongodb://91.186.199.124:27017'
     token: str = 'token'
     owner_id_0: int = 123
     owner_id_1: int = 123
@@ -38,8 +38,8 @@ color = Color()
 class Emoji(BaseSettings):
     v_point: str = '<:ValorantPointIcon:1137697062406856704>'
     k_credit: str = '<:KingdomCreditIcon:1137697058212556840>'
-    expand: str = '<:expand:1122514948694757377>'
-    shrink: str = '<:shrink:1122514947172216972>'
+    expand: str = '<:expand:1177728090995175536>'
+    shrink: str = '<:shrink:1177728147534401617>'
     yes: str = '<a:agree:1147230818163499009>'
     no: str = '<a:dontagree:1147230866083422259>'
 
