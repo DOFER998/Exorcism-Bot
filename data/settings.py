@@ -38,8 +38,8 @@ color = Color()
 class Emoji(BaseSettings):
     v_point: str = '<:ValorantPointIcon:1137697062406856704>'
     k_credit: str = '<:KingdomCreditIcon:1137697058212556840>'
-    expand: str = '<:expand:1177728090995175536>'
-    shrink: str = '<:shrink:1177728147534401617>'
+    expand: str = '<:expand:1177732048136437871>'
+    shrink: str = '<:shrink:1177732046362259546>'
     yes: str = '<a:agree:1147230818163499009>'
     no: str = '<a:dontagree:1147230866083422259>'
 
