@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    mongodb_url: str = 'mongodb://91.186.199.124:27017'
+    mongodb_url: str = 'mongodb://localhost:27017'
     token: str = 'token'
     owner_id_0: int = 123
     owner_id_1: int = 123
