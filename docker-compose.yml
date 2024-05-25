@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo:6.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: c0mrade
+      MONGO_INITDB_ROOT_PASSWORD: SamSa_2016
+    restart: always
+    volumes:
+      - mongodb:/misc/db
+    ports:
+      - '27017:27017'
+
+volumes:
+  mongodb:
