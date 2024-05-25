@@ -40,15 +40,17 @@ class SwitchingBetweenStores(discord.ui.View):
     async def image(self, button: discord.ui.Button, interaction: discord.Interaction):
         new_embeds = []
         for embed in interaction.message.embeds:
-            if (type(embed.image.url) == str and "nm" in embed.image.url.lower()) or (
-                    type(embed.thumbnail.url) == str and "nm" in embed.thumbnail.url.lower()):
+            if embed.image and (type(embed.image.url) == str and "nm" in embed.image.url.lower()):
+                new_embeds.append(embed)
+                continue
+            if embed.thumbnail and type(embed.thumbnail.url) == str and "nm" in embed.thumbnail.url.lower():
                 new_embeds.append(embed)
                 continue
             if 'expand' in button.emoji.name:
                 new_emoji = discord.PartialEmoji.from_str(emoji.shrink)
                 if embed.thumbnail:
                     embed.set_image(url=embed.thumbnail.url)
-                    embed.set_thumbnail(url=discord.Embed.Empty)
+                    embed.remove_thumbnail()
             elif 'shrink' in button.emoji.name:
                 new_emoji = discord.PartialEmoji.from_str(emoji.expand)
                 if embed.image:
@@ -169,15 +171,17 @@ class ThumbnailToImageOnly(discord.ui.View):
     async def image(self, button: discord.ui.Button, interaction: discord.Interaction):
         new_embeds = []
         for embed in interaction.message.embeds:
-            if (type(embed.image.url) == str and "nm" in embed.image.url.lower()) or (
-                    type(embed.thumbnail.url) == str and "nm" in embed.thumbnail.url.lower()):
+            if embed.image and (type(embed.image.url) == str and "nm" in embed.image.url.lower()):
+                new_embeds.append(embed)
+                continue
+            if embed.thumbnail and type(embed.thumbnail.url) == str and "nm" in embed.thumbnail.url.lower():
                 new_embeds.append(embed)
                 continue
             if 'expand' in button.emoji.name:
                 new_emoji = discord.PartialEmoji.from_str(emoji.shrink)
                 if embed.thumbnail:
                     embed.set_image(url=embed.thumbnail.url)
-                    embed.set_thumbnail(url=discord.Embed.Empty)
+                    embed.remove_thumbnail()
             elif 'shrink' in button.emoji.name:
                 new_emoji = discord.PartialEmoji.from_str(emoji.expand)
                 if embed.image:

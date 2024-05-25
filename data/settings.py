@@ -2,12 +2,9 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    mongodb_url: str = 'mongodb://localhost:27017'
+    database_url: str = 'mongodb://localhost:27017'
     token: str = 'token'
-    owner_id_0: int = 123
-    owner_id_1: int = 123
     guild_id: int = 123
-    error_channel_id: int = 123
 
 
 settings = Settings(
@@ -17,52 +14,30 @@ settings = Settings(
 
 
 class PNG(BaseSettings):
-    line: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1137835970457243648/1.png'
-    titles: str = 'https://media.discordapp.net/attachments/1137752998525800538/1150975980958134332/ace-title_valorant_icon_50326.png?width=384&height=242'
-    syntax: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196292538269706/syntax.png'
-    bad: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196292924153966/bad.png'
-    good: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196293272285225/good.png'
-    excellent: str = 'https://cdn.discordapp.com/attachments/1137752998525800538/1152196293624594472/excellent.png'
+    line: str = ('https://cdn.discordapp.com/attachments/1192538269565603891/1241313550601818133/line.png?ex=66505654'
+                 '&is=664f04d4&hm=133340215efda1d3bcba10058996d35f176e7872947c4bfb9eb2928660f5c010&')
+    titles: str = ('https://cdn.discordapp.com/attachments/1192538269565603891/1243133061810622464/title.webp?ex'
+                   '=66505d62&is=664f0be2&hm=cb778856c030fd7f8d1874ddb6df6ef9d716734e9b685790043f870cf217015d&')
 
 
 png = PNG()
 
 
 class Color(BaseSettings):
-    main_color: int = 0xff4557
+    main_color: int = 0xd2a2ff
 
 
 color = Color()
 
 
 class Emoji(BaseSettings):
-    v_point: str = '<:ValorantPointIcon:1137697062406856704>'
-    k_credit: str = '<:KingdomCreditIcon:1137697058212556840>'
-    expand: str = '<:expand:1177732048136437871>'
-    shrink: str = '<:shrink:1177732046362259546>'
-    yes: str = '<a:agree:1147230818163499009>'
-    no: str = '<a:dontagree:1147230866083422259>'
+    v_point: str = '<:ValorantPointIcon:1243133869977505843>'
+    k_credit: str = '<:KingdomCreditIcon:1243133871499907112>'
+    expand: str = '<:expand:1241302642991566909>'
+    shrink: str = '<:shrink:1241302646888075306>'
 
 
 emoji = Emoji()
-
-
-class FeedbackChannelsId(BaseSettings):
-    bug: int = 1137753032117977088
-    feature: int = 1137753034772987944
-    comment: int = 1137753037620916345
-
-
-feedback = FeedbackChannelsId()
-
-
-class TextChannelsIds(BaseSettings):
-    questionnaire: int = 1137753089353465866
-    approve_questionnaire: int = 1153066879812911275
-    approve_logs_questionnaire: int = 1153648380933840987
-
-
-text_channels = TextChannelsIds()
 
 tiers_color = {
     '0cebb8be-46d7-c12a-d306-e9907bfc5a25': 0x009587,

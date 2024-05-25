@@ -4,11 +4,9 @@ from data.settings import settings
 from utils.apis.officer.models import version, skins as s, content_tiers as c, sprays as sp, buddies as b, \
     player_cards as pc, player_titles as pt
 
-cluster = motor.motor_asyncio.AsyncIOMotorClient(settings.mongodb_url)
+cluster = motor.motor_asyncio.AsyncIOMotorClient(settings.database_url)
 users = cluster.Exorcism_Bot.users
-teams = cluster.Exorcism_Bot.teams
 config = cluster.Exorcism_Bot.config
-voice_channels = cluster.Exorcism_Bot.voice_channels
 agents = cluster.Exorcism_Bot.agents
 buddies = cluster.Exorcism_Bot.buddies
 bundles = cluster.Exorcism_Bot.bundles
@@ -41,25 +39,6 @@ async def add_users(user_id):
                 "_id": str(user_id),
                 "riot": None,
                 "dis_id": str(user_id),
-                "notify_mode": False,
-                "notify": {},
-                "DM_Message": True,
-                "voice_start_time": None,
-                "voice_time": None,
-                "voice_settings": {
-                    "name": None,
-                    "limit": None,
-                    "region": None,
-                    "bitrate": None,
-                    "lock": False,
-                    "visible": False,
-                    "chat": False,
-                    "bans": [],
-                    "trust": [],
-                    "permissions": {},
-                },
-                "message_count": None,
-                "reaction_count": None,
             }
         )
     else:
